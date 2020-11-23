@@ -31,13 +31,15 @@ public class DataBaseConfigTest {
 
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	dataBaseConfig = new DataBaseConfig();
     }
 
     @Test
     public void test_getConnection_equalConnectionImplClass(){
+
+    	//GIVEN
+
+    	//WHEN
    
         //THEN
         try {
@@ -51,6 +53,8 @@ public class DataBaseConfigTest {
 
     @Test
     public void test_closeConnection_verifyConnectionClose(){
+
+    	//GIVEN
 
     	//WHEN
     	dataBaseConfig.closeConnection(connection);
@@ -66,6 +70,8 @@ public class DataBaseConfigTest {
     @Test
     public void test_closePreparedStatement_verifyPreparedStatementClose(){
 
+    	//GIVEN
+
     	//WHEN
     	dataBaseConfig.closePreparedStatement(preparedStatement);
 
@@ -80,6 +86,8 @@ public class DataBaseConfigTest {
 
     @Test
     public void test_closeResultSet_verifyResultSetClose(){
+
+    	//GIVEN
             	
     	//WHEN
     	dataBaseConfig.closeResultSet(resultSet);

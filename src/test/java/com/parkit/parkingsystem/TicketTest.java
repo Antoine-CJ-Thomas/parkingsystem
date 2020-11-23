@@ -22,13 +22,13 @@ public class TicketTest {
 
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	ticket = new Ticket();
     }
 
     @Test
     public void test_setAndGetID_equalConstantInt(){
+
+    	//GIVEN
         
     	//WHEN
     	ticket.setId(3);
@@ -39,6 +39,8 @@ public class TicketTest {
 
     @Test
     public void test_setAndGetParkingSpot_equalMockedParkingSpot(){
+
+    	//GIVEN
         
     	//WHEN
     	ticket.setParkingSpot(parkingSpot);
@@ -50,6 +52,8 @@ public class TicketTest {
     @Test
     public void test_setAndGetVehiculeRegNumber_equalConstantString(){
 
+    	//GIVEN
+
     	//WHEN
     	ticket.setVehicleRegNumber("ABCDEF");
 
@@ -59,6 +63,8 @@ public class TicketTest {
 
     @Test
     public void test_setAndGetPrice_equalConstantInt(){
+
+    	//GIVEN
 
     	//WHEN
     	ticket.setPrice(4);

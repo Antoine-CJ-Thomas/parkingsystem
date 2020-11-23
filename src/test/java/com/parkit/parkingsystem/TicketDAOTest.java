@@ -28,8 +28,6 @@ public class TicketDAOTest {
     
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	ticketDAO = new TicketDAO();
     }
 
@@ -44,6 +42,8 @@ public class TicketDAOTest {
         when(ticket.getPrice()).thenReturn(1.0);
         when(ticket.getInTime()).thenReturn(new Date());
         when(ticket.getOutTime()).thenReturn(new Date());
+
+    	//WHEN
     	
         //THEN
         assertEquals(true, ticketDAO.saveTicket(ticket));
@@ -59,6 +59,8 @@ public class TicketDAOTest {
         when(ticket.getPrice()).thenReturn(1.0);
         when(ticket.getInTime()).thenReturn(new Date());
         when(ticket.getOutTime()).thenReturn(new Date());
+
+    	//WHEN
     	
         //THEN
         assertEquals(false, ticketDAO.saveTicket(ticket));
@@ -107,6 +109,8 @@ public class TicketDAOTest {
         when(ticket.getId()).thenReturn(1);
         when(ticket.getPrice()).thenReturn(1.0);
         when(ticket.getOutTime()).thenReturn(new Date());
+
+    	//WHEN
         
         //THEN
         assertEquals(true, ticketDAO.updateTicket(ticket));
@@ -114,6 +118,10 @@ public class TicketDAOTest {
 
     @Test
     public void test_updateTicket_equalFalse(){
+
+    	//GIVEN
+
+    	//WHEN
         
         //THEN
         assertEquals(false, ticketDAO.updateTicket(null));

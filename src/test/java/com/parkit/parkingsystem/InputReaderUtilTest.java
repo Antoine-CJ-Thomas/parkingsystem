@@ -17,8 +17,6 @@ public class InputReaderUtilTest {
 	
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	inputReaderUtil = new InputReaderUtil();
     }
 
@@ -35,6 +33,8 @@ public class InputReaderUtilTest {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+        
+        //WHEN
         
         //THEN
         assertEquals(3, inputReaderUtil.readSelection());
@@ -53,6 +53,8 @@ public class InputReaderUtilTest {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+        
+        //WHEN
         
         //THEN
         assertEquals(-1, inputReaderUtil.readSelection());
@@ -73,6 +75,7 @@ public class InputReaderUtilTest {
 			e.printStackTrace();
 		}
 
+        //WHEN
 		try {
 			vehicleRegNumber = inputReaderUtil.readVehicleRegistrationNumber();
 		} catch (Exception e) {
@@ -96,6 +99,8 @@ public class InputReaderUtilTest {
 		} catch (SecurityException e) {
 			e.printStackTrace();
 		}
+
+        //WHEN
         
         //THEN
         assertThrows(Exception.class, () -> inputReaderUtil.readVehicleRegistrationNumber());

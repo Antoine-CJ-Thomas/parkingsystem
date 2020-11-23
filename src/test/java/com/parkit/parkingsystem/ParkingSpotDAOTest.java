@@ -23,13 +23,15 @@ public class ParkingSpotDAOTest {
     
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	parkingSpotDAO = new ParkingSpotDAO();
     }
 
     @Test
     public void test_getNextAvailableSlot_equelConstantInt_WhenParkingTypeCar(){
+    	
+        //GIVEN
+
+        //WHEN
         
     	//THEN
         assertEquals(1, parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR));
@@ -37,6 +39,10 @@ public class ParkingSpotDAOTest {
 
     @Test
     public void test_getNextAvailableSlot_equelConstantInt_WhenParkingTypeBike(){
+    	
+        //GIVEN
+
+        //WHEN
         
     	//THEN
         assertEquals(4, parkingSpotDAO.getNextAvailableSlot(ParkingType.BIKE));
@@ -45,6 +51,10 @@ public class ParkingSpotDAOTest {
     @Disabled
     @Test
     public void test_updateParking_equalTrue(){
+    	
+        //GIVEN
+
+        //WHEN
 
     	//THEN
         assertEquals(true, parkingSpotDAO.updateParking(parkingSpot));
@@ -52,6 +62,10 @@ public class ParkingSpotDAOTest {
 
     @Test
     public void test_updateParking_equalFalse(){
+    	
+        //GIVEN
+
+        //WHEN
 
     	//THEN
         assertEquals(false, parkingSpotDAO.updateParking(parkingSpot));

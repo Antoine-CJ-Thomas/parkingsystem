@@ -33,8 +33,6 @@ public class FareCalculatorServiceTest {
 
     @BeforeEach
     private void initialization() {
-    	
-    	//GIVEN
         fareCalculatorService = new FareCalculatorService();
     }
 
@@ -88,6 +86,8 @@ public class FareCalculatorServiceTest {
         when(ticket.getParkingSpot()).thenReturn(parkingSpot);
         when(ticket.getInTime()).thenReturn(inDate);
         when(ticket.getOutTime()).thenReturn(outDate);
+        
+        //WHEN
 
         //THEN
         assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
@@ -159,6 +159,8 @@ public class FareCalculatorServiceTest {
 
         when(ticket.getInTime()).thenReturn(inDate);
         when(ticket.getOutTime()).thenReturn(outDate);
+        
+        //WHEN
         
         //THEN
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));

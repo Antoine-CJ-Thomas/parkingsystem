@@ -15,8 +15,6 @@ public class InteractiveShellTest {
 
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	intercativeShell = new InteractiveShell();
     }
 

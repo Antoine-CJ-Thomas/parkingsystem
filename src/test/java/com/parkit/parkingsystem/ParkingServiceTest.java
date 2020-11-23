@@ -39,8 +39,6 @@ public class ParkingServiceTest {
 
     @BeforeEach
     private void initialization() {
-        
-    	//GIVEN
         parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
     }
 
@@ -70,8 +68,10 @@ public class ParkingServiceTest {
     public void test_getNextParkingNumberIfAvailable_equalParkingSpotClass(){
 
     	//GIVEN
-        when(inputReaderUtil.readSelection()).thenReturn(1);
-        when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+        when(inputReaderUtil.readSelection()).thenReturn(2);
+        when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(2);
+    	
+        //WHEN
 
         //THEN
         assertEquals(ParkingSpot.class, parkingService.getNextParkingNumberIfAvailable().getClass());

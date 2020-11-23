@@ -16,13 +16,13 @@ public class ParkingSpotTest {
 
     @BeforeEach
     private void initialization() {
-
-    	//GIVEN
     	parkingSpot = new ParkingSpot(1,ParkingType.CAR,false);
     }
 
     @Test
     public void test_setAndGetID_equalConstantInt(){
+
+    	//GIVEN
         
     	//WHEN
     	parkingSpot.setId(3);
@@ -34,6 +34,8 @@ public class ParkingSpotTest {
     @Test
     public void test_setAndGetParkingType_equalParkingTypeCar(){
 
+    	//GIVEN
+
     	//WHEN
     	parkingSpot.setParkingType(ParkingType.CAR);
 
@@ -43,6 +45,8 @@ public class ParkingSpotTest {
 
     @Test
     public void test_setAndGetParkingType_equalParkingTypeBike(){
+
+    	//GIVEN
 
     	//WHEN
     	parkingSpot.setParkingType(ParkingType.BIKE);
@@ -54,6 +58,8 @@ public class ParkingSpotTest {
     @Test
     public void test_setAndGetAvailability_equalTrue(){
 
+    	//GIVEN
+
     	//WHEN
     	parkingSpot.setAvailable(true);
 
@@ -64,12 +70,20 @@ public class ParkingSpotTest {
     @Test
     public void test_equals_equalTrue_whenHimself(){
 
+    	//GIVEN
+
+    	//WHEN
+
     	//THEN
         assertEquals(true, parkingSpot.equals(parkingSpot));
     }
 
     @Test
     public void test_equals_equalTrue_whenAnotherInstance(){
+
+    	//GIVEN
+
+    	//WHEN
 
     	//THEN
         assertEquals(true, parkingSpot.equals(new ParkingSpot(1,ParkingType.CAR,false)));
@@ -78,6 +92,10 @@ public class ParkingSpotTest {
     @Test
     public void test_equals_equalFalse_whenNull(){
 
+    	//GIVEN
+
+    	//WHEN
+
     	//THEN
         assertEquals(false, parkingSpot.equals(null));
     }
@@ -85,12 +103,18 @@ public class ParkingSpotTest {
     @Test
     public void test_equals_equalFalse_whenAnotherClass(){
 
+    	//GIVEN
+
+    	//WHEN
+
     	//THEN
         assertEquals(false, parkingSpot.equals(new String()));
     }
 
     @Test
     public void test_hashCode_equalConstantInt(){
+
+    	//GIVEN
 
     	//WHEN
     	parkingSpot.setId(4);
