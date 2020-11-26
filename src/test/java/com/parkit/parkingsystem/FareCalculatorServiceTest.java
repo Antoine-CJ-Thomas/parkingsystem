@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class FareCalculatorServiceTest {
 
-    private static FareCalculatorService fareCalculatorService;
+    private FareCalculatorService fareCalculatorService;
 
     @Mock
     private ParkingSpot parkingSpot;
@@ -32,7 +32,7 @@ public class FareCalculatorServiceTest {
     private Ticket ticket;
 
     @BeforeEach
-    private void initialization() {
+    private void setUpPerTest() {
         fareCalculatorService = new FareCalculatorService();
     }
 
@@ -91,6 +91,46 @@ public class FareCalculatorServiceTest {
 
         //THEN
         assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
+    }
+
+    @Test
+    public void test_calculateFare_verifyTicketSetPrice_whenParkingTypeCarWithDiscount(){
+
+    	//GIVEN
+    	Date inDate = new Date();
+    	Date outDate = DateUtils.addHours(inDate, 1);
+    	
+        when(parkingSpot.getParkingType()).thenReturn(ParkingType.CAR);
+        when(ticket.getParkingSpot()).thenReturn(parkingSpot);
+        when(ticket.getInTime()).thenReturn(inDate);
+        when(ticket.getOutTime()).thenReturn(outDate);
+        when(ticket.getDiscount()).thenReturn(0.05);
+        
+        //WHEN
+        fareCalculatorService.calculateFare(ticket);
+
+        //THEN
+        verify(ticket, Mockito.times(1)).setPrice(Fare.CAR_RATE_PER_HOUR * (0.95));
+    }
+
+    @Test
+    public void test_calculateFare_verifyTicketSetPrice_whenParkingTypeBikeWithDiscount(){
+
+    	//GIVEN
+    	Date inDate = new Date();
+    	Date outDate = DateUtils.addHours(inDate, 1);
+    	
+        when(parkingSpot.getParkingType()).thenReturn(ParkingType.BIKE);
+        when(ticket.getParkingSpot()).thenReturn(parkingSpot);
+        when(ticket.getInTime()).thenReturn(inDate);
+        when(ticket.getOutTime()).thenReturn(outDate);
+        when(ticket.getDiscount()).thenReturn(0.05);
+        
+        //WHEN
+        fareCalculatorService.calculateFare(ticket);
+
+        //THEN
+        verify(ticket, Mockito.times(1)).setPrice(Fare.BIKE_RATE_PER_HOUR * (0.95));
     }
 
     @Test
@@ -164,5 +204,22 @@ public class FareCalculatorServiceTest {
         
         //THEN
         assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
+    }
+
+    @Test
+    public void test_calculateFare_verifyTicketSetPrice_whenParkingDurationLessHalfHour(){
+
+    	//GIVEN
+    	Date inDate = new Date();
+    	Date outDate = DateUtils.addMinutes(inDate, 30);
+    	
+        when(ticket.getInTime()).thenReturn(inDate);
+        when(ticket.getOutTime()).thenReturn(outDate);
+
+        //WHEN
+        fareCalculatorService.calculateFare(ticket);
+
+        //THEN
+        verify(ticket, Mockito.times(1)).setPrice(0);
     }
 }

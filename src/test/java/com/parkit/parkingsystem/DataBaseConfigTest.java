@@ -1,6 +1,5 @@
 package com.parkit.parkingsystem;
 
-import com.mysql.cj.jdbc.ConnectionImpl;
 import com.parkit.parkingsystem.config.DataBaseConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -20,7 +18,7 @@ import java.sql.SQLException;
 @ExtendWith(MockitoExtension.class)
 public class DataBaseConfigTest {
 
-    private static DataBaseConfig dataBaseConfig;
+    private DataBaseConfig dataBaseConfig;
     
     @Mock
     private Connection connection;
@@ -30,25 +28,8 @@ public class DataBaseConfigTest {
     private ResultSet resultSet;
 
     @BeforeEach
-    private void initialization() {
+    private void setUpPerTest() {
     	dataBaseConfig = new DataBaseConfig();
-    }
-
-    @Test
-    public void test_getConnection_equalConnectionImplClass(){
-
-    	//GIVEN
-
-    	//WHEN
-   
-        //THEN
-        try {
-			assertEquals(ConnectionImpl.class, dataBaseConfig.getConnection().getClass());
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
     }
 
     @Test

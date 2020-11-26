@@ -12,10 +12,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 public class ParkingSpotTest {
 
-	private static ParkingSpot parkingSpot;
+	private ParkingSpot parkingSpot;
 
     @BeforeEach
-    private void initialization() {
+    private void setUpPerTest() {
     	parkingSpot = new ParkingSpot(1,ParkingType.CAR,false);
     }
 

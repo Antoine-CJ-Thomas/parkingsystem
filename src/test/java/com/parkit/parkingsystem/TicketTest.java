@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 public class TicketTest {
 
-	private static Ticket ticket;
+	private Ticket ticket;
 	
 	@Mock
 	private ParkingSpot parkingSpot;
 
     @BeforeEach
-    private void initialization() {
+    private void setUpPerTest() {
     	ticket = new Ticket();
     }
 

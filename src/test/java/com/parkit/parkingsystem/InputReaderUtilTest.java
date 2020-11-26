@@ -13,10 +13,10 @@ import java.util.Scanner;
 
 public class InputReaderUtilTest {
 
-	private static InputReaderUtil inputReaderUtil;
+	private InputReaderUtil inputReaderUtil;
 	
     @BeforeEach
-    private void initialization() {
+    private void setUpPerTest() {
     	inputReaderUtil = new InputReaderUtil();
     }
 
@@ -84,6 +84,26 @@ public class InputReaderUtilTest {
            
 		//THEN
         assertEquals("3", vehicleRegNumber);
+    }
+
+    @Test
+    public void test_readVehicleRegistrationNumber_throwException_whenScannerGetSpaceString(){
+
+    	//GIVEN
+    	Scanner scan = new Scanner(new ByteArrayInputStream(" ".getBytes()));
+    	
+        try {
+			FieldSetter.setField(inputReaderUtil, inputReaderUtil.getClass().getDeclaredField("scan"), scan);
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+
+        //WHEN
+        
+        //THEN
+        assertThrows(IllegalArgumentException.class, () -> inputReaderUtil.readVehicleRegistrationNumber());
     }
 
     @Test

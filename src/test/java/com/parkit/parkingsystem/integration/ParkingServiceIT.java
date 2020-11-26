@@ -1,37 +1,47 @@
 package com.parkit.parkingsystem.integration;
 
+import com.parkit.parkingsystem.constants.ParkingType;
 import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
+import com.parkit.parkingsystem.model.ParkingSpot;
+import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.internal.util.reflection.FieldSetter;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import java.io.ByteArrayInputStream;
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateUtils;
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceIT {
 
-	private static ParkingService parkingService;
+	private ParkingService parkingService;
     private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
-    private static DataBasePrepareService dataBasePrepareService = new DataBasePrepareService();
-    private static InputReaderUtil inputReaderUtil = new InputReaderUtil();
-    private static ParkingSpotDAO parkingSpotDAO = new ParkingSpotDAO();
-    private static TicketDAO ticketDAO = new TicketDAO();
+    private static ParkingSpotDAO parkingSpotDAO;
+    private static TicketDAO ticketDAO;
+    private static DataBasePrepareService dataBasePrepareService;
 
+    @Mock
+    private static InputReaderUtil inputReaderUtil;
 
     @BeforeAll
     private static void setUp() throws Exception{
+        parkingSpotDAO = new ParkingSpotDAO();
         parkingSpotDAO.dataBaseConfig = dataBaseTestConfig;
+        ticketDAO = new TicketDAO();
         ticketDAO.dataBaseConfig = dataBaseTestConfig;
+        dataBasePrepareService = new DataBasePrepareService();
     }
 
     @BeforeEach
@@ -44,13 +54,10 @@ public class ParkingServiceIT {
     public void test_processIncomingVehicle(){
     	
     	//GIVEN
-    	Scanner scan = new Scanner(new ByteArrayInputStream(("1\nABCDEF").getBytes()));
-        
         try {
-			FieldSetter.setField(inputReaderUtil, inputReaderUtil.getClass().getDeclaredField("scan"), scan);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+            when(inputReaderUtil.readSelection()).thenReturn(1);
+			when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         
@@ -66,22 +73,27 @@ public class ParkingServiceIT {
     public void test_processExitingVehicle(){
     	    	
     	//GIVEN
-    	Scanner scan = new Scanner(new ByteArrayInputStream(("1\nABCDEF\nABCDEF").getBytes()));
+        Date date = DateUtils.addHours(new Date(), -1);
+        Ticket ticket = new Ticket();
+        
+        ticket.setParkingSpot(new ParkingSpot(1,ParkingType.CAR, true));
+        ticket.setVehicleRegNumber("UVWXYZ");
+        ticket.setPrice(0);
+        ticket.setInTime(date);
+        ticket.setOutTime(null);
         
         try {
-			FieldSetter.setField(inputReaderUtil, inputReaderUtil.getClass().getDeclaredField("scan"), scan);
-		} catch (NoSuchFieldException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
+			when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("UVWXYZ");
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
         
         //WHEN
-        parkingService.processIncomingVehicle();
+        ticketDAO.saveTicket(ticket);                
         parkingService.processExitingVehicle();
         
         //THEN
         //TODO: check that the fare generated and out time are populated correctly in the database
-        assertEquals(true, ticketDAO.getTicket("ABCDEF").getPrice()>0 && ticketDAO.getTicket("ABCDEF").getOutTime() != null);
+        assertEquals(true, ticketDAO.getTicket("UVWXYZ").getPrice()>0 && ticketDAO.getTicket("UVWXYZ").getOutTime() != null);
     }
 }

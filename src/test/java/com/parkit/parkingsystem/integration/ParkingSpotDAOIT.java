@@ -1,12 +1,10 @@
-package com.parkit.parkingsystem;
+package com.parkit.parkingsystem.integration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.parkit.parkingsystem.constants.ParkingType;
@@ -14,16 +12,15 @@ import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.model.ParkingSpot;
 
 @ExtendWith(MockitoExtension.class)
-public class ParkingSpotDAOTest {
+public class ParkingSpotDAOIT {
 
-    private static ParkingSpotDAO parkingSpotDAO;
-
-	@Mock
-	private ParkingSpot parkingSpot = new ParkingSpot(1,ParkingType.CAR,false);
+    private ParkingSpotDAO parkingSpotDAO;
+	private ParkingSpot parkingSpot;
     
     @BeforeEach
-    private void initialization() {
+    private void setUpPerTest() {
     	parkingSpotDAO = new ParkingSpotDAO();
+    	parkingSpot = new ParkingSpot(1,ParkingType.CAR,true);
     }
 
     @Test
@@ -38,18 +35,6 @@ public class ParkingSpotDAOTest {
     }
 
     @Test
-    public void test_getNextAvailableSlot_equelConstantInt_WhenParkingTypeBike(){
-    	
-        //GIVEN
-
-        //WHEN
-        
-    	//THEN
-        assertEquals(4, parkingSpotDAO.getNextAvailableSlot(ParkingType.BIKE));
-    }
-
-    @Disabled
-    @Test
     public void test_updateParking_equalTrue(){
     	
         //GIVEN
@@ -58,16 +43,5 @@ public class ParkingSpotDAOTest {
 
     	//THEN
         assertEquals(true, parkingSpotDAO.updateParking(parkingSpot));
-    }
-
-    @Test
-    public void test_updateParking_equalFalse(){
-    	
-        //GIVEN
-
-        //WHEN
-
-    	//THEN
-        assertEquals(false, parkingSpotDAO.updateParking(parkingSpot));
     }
 }

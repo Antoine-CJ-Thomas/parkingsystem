@@ -7,7 +7,6 @@ import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.service.FareCalculatorService;
 
 import org.apache.commons.lang.time.DateUtils;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,16 +16,12 @@ import java.util.Date;
 
 public class FareCalculatorServiceIT {
 
-    private static FareCalculatorService fareCalculatorService;
+    private FareCalculatorService fareCalculatorService;
     private Ticket ticket;
-
-    @BeforeAll
-    private static void setUp() {
-        fareCalculatorService = new FareCalculatorService();
-    }
 
     @BeforeEach
     private void setUpPerTest() {
+        fareCalculatorService = new FareCalculatorService();
         ticket = new Ticket();
     }
 
