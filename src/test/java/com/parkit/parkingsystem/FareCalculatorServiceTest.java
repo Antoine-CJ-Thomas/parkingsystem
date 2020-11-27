@@ -74,7 +74,7 @@ public class FareCalculatorServiceTest {
         verify(ticket, Mockito.times(1)).setPrice(Fare.BIKE_RATE_PER_HOUR);
     }
 
-    @Disabled
+    @Disabled // Working test but wrong Exception raised (this problem was already present in original project)
     @Test
     public void test_calculateFare_throwException_whenParkingTypeUnknow(){
 
