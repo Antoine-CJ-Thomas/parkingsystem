@@ -62,6 +62,18 @@ public class TicketTest {
     }
 
     @Test
+    public void test_setAndGetDiscount_equalConstantInt(){
+
+    	//GIVEN
+
+    	//WHEN
+    	ticket.setDiscount(0.5);
+
+    	//THEN
+        assertEquals(0.5, ticket.getDiscount());
+    }
+
+    @Test
     public void test_setAndGetPrice_equalConstantInt(){
 
     	//GIVEN
